@@ -1,0 +1,777 @@
+---
+validator: datetime
+validation:
+    word: the
+        #tag: article
+        #category: article
+follows:
+    -
+        # the thirty-first
+        validator: number
+        validation:
+            min: 1
+            max: inf
+            type: ordinal
+    -
+        # the past, next
+        validator: datetime
+        validation:
+            word:
+                category: modifier
+            words:
+                in:
+                    - past
+                    - next
+                    - following
+                    - upcoming
+                    - up coming
+                    - last
+    -
+        # the day, week
+        validator: datetime
+        validation:
+            word:
+                category: time_unit
+                features:
+                    - singular
+            words:
+                in:
+                    - second
+                    - sec
+                    - minute
+                    - min
+                    - hour
+                    - hr
+                    - day
+                    - dy
+                    - week
+                    - wk
+                    - month
+                    - year
+                    - yr
+                    - decade
+                    - century
+                    - millennium
+    -
+        # the morning
+        validator: datetime
+        validation:
+            word:
+                category: part_of_day
+            words:
+                not_in:
+                    - noon # the noon ! WTF!
+                    - night # in the night! Time phrase is `at night`
+                    - midmorning
+                    - midnight
+                    - midday
+---
+validator: datetime
+validation:
+    word: a
+        #category: article
+follows:
+    -
+        # a day, second
+        validator: datetime
+        validation:
+            word:
+                category: time_unit
+                features:
+                    - singular
+            words:
+                in:
+                    - microsecond
+                    - millisecond
+                    - second
+                    - sec
+                    - minute
+                    - min
+                    - hour
+                    - hr
+                    - day
+                    - dy
+                    - week
+                    - wk
+                    - month
+                    - year
+                    - yr
+                    - decade
+                    - century
+                    - millennium
+---
+validator: datetime
+validation:
+    word: an
+        #category: article
+follows:
+    -
+        # an hour
+        validator: datetime
+        validation:
+            word:  hour
+                #category: time_unit
+---
+validator: datetime
+validation:
+    word:
+        tag: weekday
+        category: weekday_name
+follows:
+    -
+        # Monday 13 Aug 1982
+        validator: datetime
+        validation:
+            tag: date
+    -
+        # Sunday 11PM
+        validator: datetime
+        validation:
+            tag: time
+    -
+        # Wednesday January 30
+        validator: datetime
+        validation:
+            word:
+                tag: month
+                category: month_name
+    -
+        # Tuesday the third of Jan
+        validator: datetime
+        validation:
+            word:  the
+                #category: article
+    -
+        # Monday on September 23, Sunday at 10:30 AM
+        validator: datetime
+        validation:
+            word:
+                category: pointer
+            words:
+                in:
+                    - "on"
+                    - at
+    -
+        # the 3rd Monday of Dec
+        validator: datetime
+        validation:
+            word:  of
+                #category: relationship
+    -
+        # Sunday 12 August
+        validator: number
+        validation:
+            min: 1
+            max: 31
+            type: integer
+    -
+        # monday night, noon
+        validator: datetime
+        validation:
+            word:
+                category: part_of_day
+---
+validator: datetime
+validation:
+    word:
+        tag: time_unit
+        category: time_unit
+follows:
+    -
+        # a day after
+        validator: datetime
+        validation:
+            word:
+                category: modifier
+            words:
+                in:
+                    - after
+                    - before
+                    - past
+                    - ago
+---
+validator: datetime
+validation:
+    # singular time names
+    word:
+        category: time_unit
+    words:
+        in:
+            - day
+            - dy
+            - week
+            - wk
+            - month
+follows:
+    -
+        # day 2
+        validator: number
+        validation:
+            min: 1
+            max: inf
+            type: integer
+---
+validator: datetime
+validation:
+    word:
+        tag: month
+        category: month_name
+follows:
+    -
+        # January thirty, 2050
+        validator: number
+        validation:
+            min: 1
+            max: 9999
+            type: integer
+    -
+        # January 12th, first
+        validator: number
+        validation:
+            min: 1
+            max: 31
+            type: ordinal
+    -
+        # Dec (to, from, until)
+        validator: datetime
+        validation:
+            word:
+                category: time_span
+    -
+        validator: datetime
+        validation:
+            word:
+                category: pointer
+            words:
+                in:
+                    - in # 23 January in 2020
+                    - at # 16 Sept at 12:30
+---
+validator: datetime
+validation:
+    word: of
+        #category: relationship
+follows:
+    -
+        # of November
+        validator: datetime
+        validation:
+            word:
+                tags: month
+                category: month_name
+---
+validator: datetime
+validation:
+    word: at
+        #category: pointer
+follows:
+    -
+        # at 12:30
+        validator: datetime
+        validation:
+            tag: time
+    -
+        # at 10
+        validator: number
+        validation:
+            min: 1
+            max: 24
+            type: integer
+---
+validator: datetime
+validation:
+    word: "on"
+        #category: pointer
+follows:
+    -
+        # on 23 September
+        validator: datetime
+        validation:
+            tag: date
+    -
+        # on Monday
+        validator: datetime
+        validation:
+            word:
+                tag: weekday
+                #category: weekday_name
+    -
+        # on January 31st
+        validator: datetime
+        validation:
+            word:
+                tag: month
+                category: month_name
+    -
+        # on the
+        validator: datetime
+        validation:
+            word:  the
+                #tag: article
+                #category: article
+    -
+        # on 23
+        validator: number
+        validation:
+            min: 1
+            max: 31
+            type: [integer, ordinal]
+---
+validator: datetime
+validation:
+    word: in
+        #tag: preposition
+        #category: pointer
+follows:
+    -
+        # in December
+        validator: datetime
+        validation:
+            word:
+                tag: month
+                category: month_name
+    -
+        # in 56 days
+        validator: number
+        validation:
+            min: 0
+            max: inf
+            type: integer
+    -
+        # in the 2 days
+        validator: datetime
+        validation:
+            word:  the
+                #tag: article
+                #category: article
+---
+validator: datetime
+validation:
+    word:
+        category: time_span
+    words:
+        in:
+            # from (Wednesday, January, yesterday)
+            - from
+            # to (Wednesday, January, tomorrow)
+            - to
+            - until
+            - untill
+            - till
+            - up to
+            - upto
+follows:
+    -
+        # to November
+        validator: datetime
+        validation:
+            word:
+                tag: month
+                category: month_name
+    -
+        # till Wednesday
+        validator: datetime
+        validation:
+            word:
+                tag: weekday
+                category: weekday_name
+    -
+        # up to yesterday
+        validator: datetime
+        validation:
+            word:
+                tag: noun
+                category: day_alias
+    -
+        # upto the
+        validator: datetime
+        validation:
+            word:  the
+                #tag: article
+                #category: article
+    -
+        # from next, last
+        validator: datetime
+        validation:
+            word:
+                category: modifier
+            words:
+                not_in:
+                    - ago
+    -
+        # until 23rd February
+        validator: datetime
+        validation:
+            tag: date
+    -
+        # upto 12:36 AM
+        validator: datetime
+        validation:
+            tag: time
+    -
+        # from now
+        validator: datetime
+        validation:
+            word:  now
+                #tag: adverb
+                #category: modifier
+    -
+        # to six
+        validator: number
+        validation:
+            min: 2
+            max: inf
+            type: integer         
+---
+validator: datetime
+validation:
+    word:
+        category: modifier
+    words:
+        in:
+            - after
+            - before
+            - next
+            - past
+            - following
+follows:
+    -
+        # next 2 days
+        validator: number
+        validation:
+            min: 0
+            max: inf
+            type: [integer, float]
+---
+# today, yesterday,  tomorrow
+validator: datetime
+validation:
+    word:
+        category: day_alias
+follows:
+    -
+        validator: datetime
+        validation:
+            word:  at
+                #category: pointer
+    -
+        validator: datetime
+        validation:
+            tag: time
+    -
+        validator: number
+        validation:
+            min: 1
+            max: 24
+            type: integer
+    -
+        validator: datetime
+        validation:
+            word:
+                category: time_span
+---
+validator: datetime
+validation:
+    word:
+        tag: adverb
+    words:
+        in:
+            - "o'clock"
+            - oclock
+follows:
+    -
+        validator: datetime
+        validation:
+            word:
+                category: time_span
+                features:
+                    - end_time_span
+            words:
+                in:
+                    - to
+                    - until
+                    - till
+                    - up to
+                    - upto
+    -
+        validator: datetime
+        validation:
+            word:
+                category: pointer
+            words:
+                in:
+                    - "on" # 7 o'clock on Monday
+                    - at # 2 o'clock at night
+---
+validator: datetime
+validation:
+    tag: time
+follows:
+    -
+        # 12PM on Friday
+        validator: datetime
+        validation:
+            word:
+                category: pointer
+    -
+        # 13:45 Wednesday
+        validator: datetime
+        validation:
+            word:
+                tag: weekday
+                category: weekday_name
+    -
+        # 11hrs after tomorrow
+        validator: datetime
+        validation:
+            word:
+                category: modifier
+            words:
+                not_in:
+                    - upcoming
+                    - coming
+    -
+        validator: datetime
+        validation:
+            word:
+                category: time_span
+---
+validator: datetime
+validation:
+    word:
+        category: part_of_day
+---
+validator: number
+validation:
+    min: 1
+    max: 31
+    type: [integer, ordinal]
+
+follows:
+    -
+        # 31st of
+        validator: datetime
+        validation:
+            word:  of
+                #category: relationship
+    -
+        # 23 January
+        validator: datetime
+        validation:
+            word:
+                tag: month
+                category: month_name
+---
+validator: number
+validation:
+    min: 1
+    max: 24
+    type: integer
+follows:
+    -
+        validator: datetime
+        validation:
+            word:
+                tag: adverb
+            words:
+                in:
+                    - "o'clock"
+                    - oclock
+---
+validator: number
+validation:
+    min: 1
+    max: 1
+    type: [integer, ordinal]
+follows:
+    -
+        # [1, first] second, day, year
+        validator: datetime
+        validation:
+            word:
+                category: time_unit
+                features:
+                    - singular
+            words:
+                in:
+                    - microsecond
+                    - millisecond
+                    - second
+                    - sec
+                    - minute
+                    - min
+                    - hour
+                    - hr
+                    - day
+                    - dy
+                    - week
+                    - wk
+                    - month
+                    - year
+                    - yr
+                    - decade
+                    - century
+                    - millennium
+---
+validator: number
+validation:
+    min: 0
+    max: inf
+    type: float
+follows:
+    -
+        # 0.2 seconds, days, years
+        validator: datetime
+        validation:
+            word:
+                category: time_unit
+                features:
+                    - plural
+            words:
+                in:
+                    - microseconds
+                    - milliseconds
+                    - seconds
+                    - minutes
+                    - mins
+                    - hours
+                    - hrs
+                    - days
+                    - dys
+                    - weeks
+                    - wks
+                    - months
+                    - years
+                    - yrs
+                    - decades
+                    - centuries
+                    - millennia
+---
+validator: number
+validation:
+    min: 2
+    max: inf
+    type: integer
+follows:
+    -
+        # 200 seconds, days, years
+        validator: datetime
+        validation:
+            word:
+                category: time_unit
+                features:
+                    - plural
+            words:
+                in:
+                    - microseconds
+                    - milliseconds
+                    - seconds
+                    - minutes
+                    - mins
+                    - hours
+                    - hrs
+                    - days
+                    - dys
+                    - weeks
+                    - wks
+                    - months
+                    - years
+                    - yrs
+                    - decades
+                    - centuries
+                    - millennia
+---
+validator: number
+validation:
+    min: 2
+    max: inf
+    type: ordinal
+follows:
+    -
+        # 200th second, day, year
+        validator: datetime
+        validation:
+            word:
+                category: time_unit
+                features:
+                    - singular
+            words:
+                in:
+                    - microsecond
+                    - millisecond
+                    - second
+                    - sec
+                    - minute
+                    - min
+                    - hour
+                    - hr
+                    - day
+                    - dy
+                    - week
+                    - wk
+                    - month
+                    - year
+                    - yr
+                    - decade
+                    - century
+                    - millennium
+---
+validator: number
+validation:
+    min: 1
+    max: 31
+    type: integer
+follows:
+    -
+        validator: datetime
+        validation:
+            word:
+                category: pointer
+            words:
+                in:
+                    - at # 11 at night
+                    - "on" # 12 on monday
+validator: number
+validation:
+    min: 1
+    max: inf
+    type: integer
+follows:
+    -
+        # ten to six pm
+        validator: datetime
+        validation:
+            word:
+                category: time_span
+                features:
+                    - end_time_span
+            words:
+                in:
+                    - to
+                    - upto
+                    - up to
+                    - untill
+                    - until
+---
+validator: number
+validation:
+    min: 1
+    max: 23
+    type: integer
+follows:
+    -
+        # ten pm
+        validator: datetime
+        validation:
+            tag: time_period
+---
+validator: datetime
+validation:
+    tag: time_period
+follows:
+    -
+        # ten 'pm' (to, till) six am
+        validator: datetime
+        validation:
+            word:
+                category: time_spannit
