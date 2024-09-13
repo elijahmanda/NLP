@@ -24,7 +24,7 @@ The library requires Python 3.9+. To install, follow these steps:
 git clone https://github.com/elijahmanda/NLP.git
 
 # Navigate to the project directory
-cd nlp-library
+cd NLP
 
 # Install dependencies
 pip install -r requirements.txt
