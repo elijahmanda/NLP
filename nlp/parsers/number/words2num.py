@@ -1,5 +1,4 @@
 from __future__ import annotations
-from nlp.parsers.number.normalize import Pipe
 
 import re
 import operator
@@ -10,7 +9,7 @@ from typing import (
     TYPE_CHECKING
 )
 
-
+from nlp.parsers.number.normalize import Pipe
 from nlp.parsers.number.utils import pair
 from nlp.utils.strings import CaseLessString
 from nlp.parsers.number.ejtoken import tokenize
